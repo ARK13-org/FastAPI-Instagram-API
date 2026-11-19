@@ -1,12 +1,17 @@
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from db.database import engine
-from db.models import base
-from routers import user , post , comment
-from auth import authentication
-from fastapi.middleware.cors import CORSMiddleware
+import os
 
-app = FastAPI()
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+
+from auth import authentication
+from db.database import engine, run_light_migrations
+from db.models import base
+from routers import comment, post, user
+
+os.makedirs("uploaded_file", exist_ok=True)
+
+app = FastAPI(title="Instagram API")
 app.include_router(user.router)
 app.include_router(post.router)
 app.include_router(comment.router)
@@ -22,3 +27,4 @@ app.add_middleware(
 )
 
 base.metadata.create_all(bind=engine)
+run_light_migrations()
