@@ -1,280 +1,170 @@
-# 📸 FastAPI Instagram API
+# Instagram Posts – Flutter
 
-An Instagram-inspired REST API built with **FastAPI, SQLAlchemy, and SQLite**. This project provides backend functionality for user management, authentication, post management, comments, and image uploads.
+A modern Instagram-inspired social media application built with **Flutter** and **Dart**, integrated with a custom **FastAPI REST API**.
 
-Originally developed to practice backend development fundamentals, the project has evolved with additional API endpoints, improved frontend integration, and support for Flutter UI development.
+This project started as a simple posts application and has grown into a more complete social media UI. It focuses on Flutter app architecture, API integration, authentication, navigation, and managing posts and comments.
 
-## 🔄 Project Evolution
+## 📱 Screenshots
 
-This project has gone through several improvements since its initial version.
+### Posts Feed
+![Posts Feed](screenshots/posts-feed.png)
 
-| Feature | Original Version | Updated Version |
-|---|---|---|
-| User registration | ✅ | ✅ |
-| JWT authentication | ✅ | ✅ |
-| Password hashing | ✅ | ✅ |
-| User retrieval | Basic | Expanded |
-| Post creation | ✅ | ✅ |
-| Fetch all posts | ✅ | ✅ |
-| Fetch individual posts | — | ✅ |
-| Fetch posts by user | — | ✅ |
-| Update post captions | — | ✅ |
-| Delete posts | ✅ | ✅ |
-| Image uploads | ✅ | ✅ |
-| Comment creation | ✅ | ✅ |
-| Fetch comments | ✅ | ✅ |
-| Comment deletion | ✅ | ✅ |
-| CORS middleware | — | ✅ |
-| Flutter frontend integration | — | Added as current development focus |
+### Add Post
+![Add Post](screenshots/add-post.png)
 
-The updated version focuses on making the API more flexible and suitable for frontend applications.
+### Update Post
+![Update Post](screenshots/update-post.png)
 
 ## ✨ Features
 
-### 👤 User Management
-- User registration.
-- Retrieve user information.
-- Retrieve users by specific identifiers.
-- User account deletion.
+- **Authentication:** Sign in and manage an authenticated user session.
+- **Home Feed:** Fetch and browse posts from the backend.
+- **Explore:** Browse available posts in the explore section.
+- **Post Details:** Open individual posts and view their details.
+- **Create Posts:** Create posts using an image URL and caption.
+- **Edit Posts:** Update existing post captions.
+- **Delete Posts:** Remove posts.
+- **Comments:** View and interact with post comments.
+- **User Profiles:** View user profile information and posts.
+- **Pull to Refresh:** Refresh feed content.
+- **Navigation:** Navigate between the main application sections.
+- **API Integration:** Communicate with the FastAPI backend using HTTP requests.
+- **Session Management:** Maintain authentication information across app usage.
 
-### 🔐 Authentication
-- OAuth2 authentication.
-- JWT access token generation.
-- Password hashing using pwdlib.
-
-### 📝 Post Management
-- Create new posts.
-- Retrieve all posts.
-- Retrieve individual posts.
-- Retrieve posts belonging to a specific user.
-- Update post captions using PATCH.
-- Delete posts.
-
-### 🖼️ Image Handling
-- Support for external image URLs.
-- Upload image files to the backend.
-- Serve locally uploaded images using FastAPI static files.
-
-### 💬 Comment Management
-- Create comments.
-- Retrieve comments belonging to a post.
-- Delete comments.
-
-### 🌐 Frontend Integration
-- CORS middleware configuration.
-- REST API endpoints designed for frontend consumption.
-- Flutter integration for practicing real-world API communication.
-
-## 🛠️ Technologies
+## 🛠️ Tech Stack
 
 | Technology | Purpose |
 |---|---|
-| Python | Programming language |
-| FastAPI | REST API framework |
-| SQLAlchemy | ORM and database operations |
-| SQLite | Relational database |
-| Pydantic | Data validation |
-| OAuth2 | Authentication framework |
-| JWT | Token-based authentication |
-| pwdlib | Password hashing |
-| Uvicorn | ASGI server |
+| Flutter | Cross-platform UI development |
+| Dart | Application programming language |
+| FastAPI | Backend REST API |
+| HTTP | API communication |
+| JSON | Data exchange and serialization |
+| Shared Preferences | Local session data storage |
+| File Picker | File selection dependency |
 
 ## 📂 Project Structure
 
 ```text
-FastAPI-Instagram-API/
+lib/
+├── api/
+│   ├── config.dart
+│   ├── dart_api.dart
+│   └── session.dart
 │
-├── auth/
-│   ├── authentication.py
-│   └── oauth2.py
+├── models/
+│   ├── post_model.dart
+│   └── user_model.dart
 │
-├── db/
-│   ├── database.py
-│   ├── models.py
-│   ├── db_user.py
-│   ├── db_post.py
-│   ├── db_comment.py
-│   └── hash.py
+├── screens/
+│   ├── add_post.dart
+│   ├── auth_screen.dart
+│   ├── explore_screen.dart
+│   ├── feed_screen.dart
+│   ├── main_shell.dart
+│   ├── post_detail_screen.dart
+│   ├── profile_screen.dart
+│   └── update_post.dart
 │
-├── routers/
-│   ├── user.py
-│   ├── post.py
-│   └── comment.py
+├── theme/
+│   └── app_theme.dart
 │
-├── uploaded_file/
+├── utils/
+│   └── format.dart
 │
-├── main.py
-├── schemas.py
-├── requirements.txt
-├── .gitignore
-└── README.md
+├── widgets/
+│   ├── avatar.dart
+│   ├── brand.dart
+│   ├── comments_panel.dart
+│   ├── post_card.dart
+│   └── state_views.dart
+│
+└── main.dart
 ```
 
-## 🚀 Installation and Setup
+## 🔗 Backend Integration
 
-### 1. Clone the repository
+This application connects to a separate FastAPI backend.
 
-```bash
-git clone https://github.com/ARK13-org/FastAPI-Instagram-API.git
+**Backend Repository:**  
+[FastAPI-Instagram-API](https://github.com/ARK13-org/FastAPI-Instagram-API)
 
-cd FastAPI-Instagram-API
-```
+The backend provides REST API functionality for authentication, users, posts, and comments.
 
-### 2. Create a virtual environment
-
-```bash
-python -m venv .venv
-```
-
-Activate the environment on Windows:
-
-```bash
-.venv\Scripts\activate
-```
-
-On macOS/Linux:
-
-```bash
-source .venv/bin/activate
-```
-
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Prepare the upload directory
-
-Make sure the `uploaded_file` directory exists in the project root.
-
-```bash
-mkdir uploaded_file
-```
-
-### 5. Start the server
-
-```bash
-uvicorn main:app --reload
-```
-
-The API will run at:
+The API base address is configured in:
 
 ```text
-http://127.0.0.1:8000
+lib/api/config.dart
 ```
 
-### 6. API Documentation
+Make sure the backend is running and accessible before using the application.
 
-FastAPI automatically generates interactive API documentation.
+## ⚙️ Installation and Setup
 
-- Swagger UI: http://127.0.0.1:8000/docs
-- ReDoc: http://127.0.0.1:8000/redoc
+### 1. Clone the Repository
 
-## 📡 API Endpoints
+```bash
+git clone https://github.com/ARK13-org/Instagram-Posts-Flutter.git
+```
 
-The following table summarizes the main API operations.
+### 2. Navigate to the Project
 
-### Users
+```bash
+cd Instagram-Posts-Flutter
+```
 
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/user` | Register a user |
-| GET | `/user/{id}` | Retrieve a user by ID |
-| GET | User lookup route | Retrieve a user by username |
-| DELETE | `/user/delete/{id}` | Delete a user |
+### 3. Install Dependencies
 
-### Authentication
+```bash
+flutter pub get
+```
 
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/token` | Generate a JWT access token |
+### 4. Configure the Backend
 
-### Posts
-
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/post/create_post` | Create a post |
-| GET | `/post/` | Retrieve all posts |
-| GET | `/post/{id}` | Retrieve a specific post |
-| GET | `/post/user_posts?user_id={id}` | Retrieve posts by user |
-| PATCH | `/post/update_caption/{id}` | Update a post caption |
-| POST | `/post/delete_post/{id}` | Delete a post |
-| POST | `/post/upload_file` | Upload an image |
-
-### Comments
-
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/comment/create_comment` | Create a comment |
-| GET | `/comment/{id}` | Retrieve comments for a post |
-| DELETE | `/comment/delete_comment?id={id}` | Delete a comment |
-
-*Note: Check the actual router definitions in Swagger UI for exact paths, HTTP methods, and request parameters.*
-
-## 🔐 Authentication Status
-
-JWT authentication and OAuth2 functionality are implemented in the project.
-
-For the current Flutter UI development and testing phase, authentication dependencies have intentionally been disabled on selected post and comment routes.
-
-This allows frontend operations to be tested without implementing the login interface first.
-
-**Security note:** These routes are currently intended for local development and UI practice. Authentication and ownership validation should be enabled before public deployment.
-
-## 🗄️ Database Design
-
-The application uses SQLAlchemy ORM to manage relationships between users, posts, and comments.
+Open:
 
 ```text
-User
- │
- ├── Posts (One-to-Many)
- │     │
- │     └── Comments (One-to-Many)
- │
- └── Comments (One-to-Many)
+lib/api/config.dart
 ```
 
-Main database entities:
+Set the API address according to your environment.
 
-- **User:** Stores user account information.
-- **Post:** Stores image information, captions, timestamps, and user relationships.
-- **Comment:** Stores comment text, timestamps, and relationships with users and posts.
+Common examples:
 
-## 📱 Flutter Integration
+- **Android Emulator:** `10.0.2.2` to access the host computer.
+- **Physical Android Device:** Your computer's local network IP address.
+- **Web/Desktop:** An address accessible from your environment.
 
-The updated backend is also being used for Flutter frontend development.
+Ensure the backend URL and port match your FastAPI configuration.
 
-The current frontend practice focuses on the Posts section, including:
+### 5. Run the Application
 
-- Displaying posts from the API.
-- Creating posts with images and captions.
-- Updating post captions.
-- Retrieving individual posts.
-- Connecting Flutter models to FastAPI responses.
+```bash
+flutter run
+```
 
-For Android emulator testing, use `10.0.2.2` instead of `127.0.0.1` to access a FastAPI server running on your computer.
+## 📚 What I Learned
 
-For physical-device testing, use your computer's local network IP address and configure CORS and network access appropriately.
+Through this project, I practiced:
 
-## 🧠 What I Learned
-
-During the development of this project, I practiced:
-
-- Building REST APIs with FastAPI.
-- Structuring applications using routers and modules.
-- SQLAlchemy ORM and relational database management.
-- Implementing CRUD operations.
-- Pydantic schemas and data validation.
-- OAuth2 and JWT authentication.
-- Password hashing.
-- Handling file uploads and static files.
-- Configuring CORS for frontend integration.
-- Connecting backend APIs with Flutter.
+- Building multi-screen Flutter applications.
+- Organizing Flutter projects into reusable components.
+- Managing application state and navigation.
+- Creating and using Dart model classes.
+- Parsing JSON responses.
+- Integrating Flutter with a FastAPI backend.
+- Sending HTTP requests and handling API responses.
+- Implementing authentication and session management.
+- Working with asynchronous operations.
+- Building reusable widgets and application themes.
+- Managing data across different screens.
 
 ## 🎯 Project Goal
 
-The goal of this project is to strengthen my backend development skills using FastAPI while building a foundation for an Instagram-inspired application.
+The goal of this project is to improve my Flutter and Dart development skills by building a practical social media application and integrating it with a custom backend.
 
-It has evolved from a basic backend learning project into a more feature-rich REST API that I can use alongside Flutter to practice full-stack application development.
+It is part of my ongoing portfolio development, combining **Flutter frontend development** with **Python and FastAPI backend development**.
+
+---
+
+**Developer:** [ARK13-org](https://github.com/ARK13-org)
